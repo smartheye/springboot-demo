@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd"
+	default-autowire="byName">
+
+	<context:property-placeholder location="classpath*:datasource.properties" />
+
+	<!--读入配置文件 -->
+	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath*:datasource.properties</value>
+		</property>
+	</bean> -->
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${account-management.db.url}" />
+		<property name="username" value="${account-management.username}" />
+		<property name="password" value="${account-management.password}" />
+
+		<property name="initialSize" value="${druid.initialSize}" />
+		<property name="maxActive" value="${druid.maxActive}" />
+		<property name="minIdle" value="${druid.minIdle}" />
+		<property name="maxWait" value="${druid.maxWait}" />
+
+		<property name="testWhileIdle" value="${druid.testWhileIdle}" />
+		<property name="testOnBorrow" value="${druid.testOnBorrow}" />
+		<property name="testOnReturn" value="${druid.testOnReturn}" />
+		<property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+		<property name="maxEvictableIdleTimeMillis" value="${druid.maxEvictableIdleTimeMillis}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+
+		<property name="logAbandoned" value="${druid.logAbandoned}" />
+		<property name="removeAbandoned" value="${druid.removeAbandoned}" />
+		<property name="removeAbandonedTimeout" value="${druid.removeAbandonedTimeoutMillis}" />
+
+		<property name="poolPreparedStatements" value="${druid.poolPreparedStatement}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="${druid.maxPoolPreparedStatementPerConnectionSize}" />
+		<property name="connectionProperties" value="${druid.connectionProperties}" />
+
+		<property name="filters" value="${druid.filters}" />
+	</bean>
+
+	<!-- mybatis.spring自动映射 -->
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath*:mappers/**/*.xml" />
+		<property name="typeAliasesPackage" value="com.github.smartheye.springboot.demo.account.dal.domain" />
+		<property name="configuration">
+			<bean class="org.apache.ibatis.session.Configuration">
+				<property name="mapUnderscoreToCamelCase" value="true" />
+			</bean>
+		</property>
+	</bean> -->
+
+</beans>

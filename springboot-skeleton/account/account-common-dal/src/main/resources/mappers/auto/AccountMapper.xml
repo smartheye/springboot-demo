@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.smartheye.springboot.demo.account.dal.mapper.auto.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.github.smartheye.springboot.demo.account.dal.domain.auto.Account">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ACCOUNT_ID" jdbcType="VARCHAR" property="accountId" />
+    <result column="CUSTOMER_ID" jdbcType="VARCHAR" property="customerId" />
+    <result column="ACCOUNT_TYPE" jdbcType="CHAR" property="accountType" />
+    <result column="BALANCE" jdbcType="DECIMAL" property="balance" />
+    <result column="AVAILABLE_BALANCE" jdbcType="DECIMAL" property="availableBalance" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ACCOUNT_ID, CUSTOMER_ID, ACCOUNT_TYPE, BALANCE, AVAILABLE_BALANCE, CREATE_BY, 
+    CREATE_TIME, UPDATE_BY, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_account
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_account
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.github.smartheye.springboot.demo.account.dal.domain.auto.Account">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_account (ACCOUNT_ID, CUSTOMER_ID, 
+      ACCOUNT_TYPE, BALANCE, AVAILABLE_BALANCE, 
+      CREATE_BY, CREATE_TIME, UPDATE_BY, 
+      UPDATE_TIME)
+    values (#{accountId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
+      #{accountType,jdbcType=CHAR}, #{balance,jdbcType=DECIMAL}, #{availableBalance,jdbcType=DECIMAL}, 
+      #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.github.smartheye.springboot.demo.account.dal.domain.auto.Account">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accountId != null">
+        ACCOUNT_ID,
+      </if>
+      <if test="customerId != null">
+        CUSTOMER_ID,
+      </if>
+      <if test="accountType != null">
+        ACCOUNT_TYPE,
+      </if>
+      <if test="balance != null">
+        BALANCE,
+      </if>
+      <if test="availableBalance != null">
+        AVAILABLE_BALANCE,
+      </if>
+      <if test="createBy != null">
+        CREATE_BY,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateBy != null">
+        UPDATE_BY,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accountId != null">
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null">
+        #{accountType,jdbcType=CHAR},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="availableBalance != null">
+        #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.github.smartheye.springboot.demo.account.dal.domain.auto.Account">
+    update t_account
+    <set>
+      <if test="accountId != null">
+        ACCOUNT_ID = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null">
+        ACCOUNT_TYPE = #{accountType,jdbcType=CHAR},
+      </if>
+      <if test="balance != null">
+        BALANCE = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="availableBalance != null">
+        AVAILABLE_BALANCE = #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="createBy != null">
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.github.smartheye.springboot.demo.account.dal.domain.auto.Account">
+    update t_account
+    set ACCOUNT_ID = #{accountId,jdbcType=VARCHAR},
+      CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      ACCOUNT_TYPE = #{accountType,jdbcType=CHAR},
+      BALANCE = #{balance,jdbcType=DECIMAL},
+      AVAILABLE_BALANCE = #{availableBalance,jdbcType=DECIMAL},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByAccountId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_account
+    where ACCOUNT_ID = #{accountId,jdbcType=VARCHAR}
+  </select>
+</mapper>

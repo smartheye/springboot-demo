@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--数据库驱动-->
+    <properties resource="generatorConfig.properties"/>
+
+    <context id="myBatis3"  targetRuntime="MyBatis3" defaultModelType="flat">
+    	<plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+    	<plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"/>
+    	<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+    	<plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库链接地址账号密码-->
+        <connectionFactory>
+        	<property name="driverClass" value="${jdbc.driver}"/>
+        	<property name="connectionURL" value="${jdbc.url}"/>
+        	<property name="userId" value="${jdbc.user}"/>
+        	<property name="password" value="${jdbc.password}"/>
+        </connectionFactory>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <!--生成Model类存放位置-->
+        <javaModelGenerator targetPackage="${target.model.package}" targetProject="${target.project.dir}/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="/" targetProject="${target.project.dir}/resources/mappers/auto">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--生成Dao类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${target.client.package}" 
+            targetProject="${target.project.dir}/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--生成对应表及类名-->
+        <table tableName="t_account" domainObjectName="Account" 
+        		enableCountByExample="false"
+                enableUpdateByExample="false" 
+                enableDeleteByExample="false"
+                enableSelectByExample="false" 
+                selectByExampleQueryId="false">
+        	<generatedKey column="id" sqlStatement="MySql" identity="false"/>
+        </table>
+    </context>
+</generatorConfiguration>

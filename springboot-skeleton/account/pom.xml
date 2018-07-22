@@ -1,0 +1,391 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.3.RELEASE</version>
+	</parent>
+	<groupId>com.github.smartheye.springboot.demo.account</groupId>
+	<artifactId>account</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>account</name>
+	<url>https://github.com/smartheye/springboot-demo-accountmanagemnt</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<java.version>1.8</java.version>
+		<springboot.version>2.0.3.RELEASE</springboot.version>
+		<account.version>1.0-SNAPSHOT</account.version>
+		<mysql-connector-java.version>5.1.46</mysql-connector-java.version>
+		<druid.version>1.1.10</druid.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- 引入所有子module -->
+			<dependency>
+				<groupId>com.github.smartheye.springboot.demo.account</groupId>
+				<artifactId>account-common-util</artifactId>
+				<version>${account.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.smartheye.springboot.demo.account</groupId>
+				<artifactId>account-common-dal</artifactId>
+				<version>${account.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.smartheye.springboot.demo.account</groupId>
+				<artifactId>account-common-intergration</artifactId>
+				<version>${account.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.smartheye.springboot.demo.account</groupId>
+				<artifactId>account-biz</artifactId>
+				<version>${account.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.smartheye.springboot.demo.account</groupId>
+				<artifactId>account-service</artifactId>
+				<version>${account.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.smartheye.springboot.demo.account</groupId>
+				<artifactId>account-common-facade</artifactId>
+				<version>${account.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.smartheye.springboot.demo.account</groupId>
+				<artifactId>account-runner</artifactId>
+				<version>${account.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.smartheye.springboot.demo.account</groupId>
+				<artifactId>account-web</artifactId>
+				<version>${account.version}</version>
+			</dependency>
+
+			<!-- spring boot log4j2支持，需要排除spring-boot-starter-logging -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-log4j2</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<!--
+				健康监控
+				参考/actuator下的接口
+			-->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<!-- 
+				SpringBoot AOP支持
+			 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-aop</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<!-- 
+				SpringBoot 定时器支持
+			 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-quartz</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<!-- 
+				SpringBoot 
+			 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-validation</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-devtools</artifactId>
+				<scope>runtime</scope>
+				<version>${springboot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-configuration-processor</artifactId>
+				<optional>true</optional>
+				<version>${springboot.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>3.4.6</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>1.3.2</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
+			<dependency>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-core</artifactId>
+				<version>1.3.7</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>1.3.2</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/com.alibaba.spring.boot/dubbo-spring-boot-starter -->
+			<dependency>
+				<groupId>com.alibaba.spring.boot</groupId>
+				<artifactId>dubbo-spring-boot-starter</artifactId>
+				<version>2.0.0</version>
+			</dependency>
+
+			<!-- JDBC -->
+			<!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql-connector-java.version}</version>
+			</dependency>
+
+
+			<!-- log4j2 -->
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-api</artifactId>
+				<version>2.11.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>2.11.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-web</artifactId>
+				<version>2.11.0</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-slf4j-impl</artifactId>
+				<version>2.11.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.25</version>
+			</dependency>
+
+			<!-- test -->
+			<!-- https://mvnrepository.com/artifact/junit/junit -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>5.0.7.RELEASE</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-test -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-test</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${springboot.version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>3.10.0</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4 -->
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-module-junit4</artifactId>
+				<version>1.7.4</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito -->
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-api-mockito2</artifactId>
+				<version>1.7.4</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.powermock/powermock-core -->
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-core</artifactId>
+				<version>1.7.4</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.powermock/powermock-reflect -->
+			<dependency>
+				<groupId>org.powermock</groupId>
+				<artifactId>powermock-reflect</artifactId>
+				<version>1.7.4</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>2.19.1</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>flattern-maven-plugin</artifactId>
+										<versionRange>[1.0,)</versionRange>
+										<goals>
+											<goal>flattern</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute>
+											<runOnConfiguration>true</runOnConfiguration>
+										</execute>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<pomElements>
+						<repositories>flattern</repositories>
+					</pomElements>
+
+				</configuration>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>flatten.clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+
+
+
+
+
+
+
+
+
+
+
+	<modules>
+		<module>account-common-util</module>
+		<module>account-common-dal</module>
+		<module>account-common-intergration</module>
+		<module>account-common-facade</module>
+		<module>account-biz</module>
+		<module>account-service</module>
+		<module>account-runner</module>
+		<module>account-web</module>
+	</modules>
+</project>
