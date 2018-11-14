@@ -32,3 +32,5 @@ target
 .metadata
 .factorypath
 .springBeans
+.flattened-pom.xml
+target/
